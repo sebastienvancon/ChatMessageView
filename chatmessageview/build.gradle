@@ -71,7 +71,7 @@ bintray {
         websiteUrl = siteUrl
         issueTrackerUrl = 'https://github.com/bassaer/ChatMessageView/issues'
         vcsUrl = gitUrl
-        licenses = ['MIT']
+        licenses = ['Apache-2.0']
         labels = ['android']
         publicDownloadNumbers = true
     }
@@ -86,8 +86,8 @@ install {
                 url = siteUrl
                 licenses {
                     license {
-                        name 'The MIT License (MIT)'
-                        url 'https://opensource.org/licenses/mit-license.php'
+                        name 'Apache License, Version 2.0'
+                        url 'https://opensource.org/licenses/apache2.0.php'
                     }
                 }
                 developers {
