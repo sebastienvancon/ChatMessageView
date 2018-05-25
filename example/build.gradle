@@ -8,7 +8,7 @@ android {
     buildToolsVersion '26.0.2'
 
     defaultConfig {
-        applicationId "com.github.bassaer.example"
+        applicationId "com.github.sebastienvancon.example"
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1

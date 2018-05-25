@@ -126,7 +126,8 @@ class Message {
         LINK,
         CONTACT,
         POI,
-        TRANSPORT
+        TRANSPORT,
+        DOTS
     }
 
     /**

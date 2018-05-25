@@ -161,19 +161,34 @@ public class MessengerActivity extends Activity {
             public void onClick(View view) {
                 initUsers();
                 //new message
-                Message message= new Message.Builder()
-                        .setUser(mUsers.get(0))
-                        .setRight(true)
-                        .setText(mChatView.getInputText())
-                        .hideIcon(true)
-                        .setStatusIconFormatter(new MyMessageStatusFormatter(MessengerActivity.this))
-                        .setStatusTextFormatter(new MyMessageStatusFormatter(MessengerActivity.this))
-                        .setStatusStyle(Message.Companion.getSTATUS_ICON())
-                        .setStatus(MyMessageStatusFormatter.STATUS_DELIVERED)
-                        .build();
+                Message message;
                 if (mChatView.getInputText().contains("ok")){
-                    message.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.red500));
-                    message.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.green500));
+                    Bitmap dots = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ic_action_send);
+//                    message.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.red500));
+//                    message.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.green500));
+                    message= new Message.Builder()
+                            .setUser(mUsers.get(0))
+                            .setRight(true)
+                            .setText(mChatView.getInputText())
+                            .hideIcon(true)
+                            .setType(Message.Type.DOTS)
+                            .setPicture(dots)
+                            .setStatusIconFormatter(new MyMessageStatusFormatter(MessengerActivity.this))
+                            .setStatusTextFormatter(new MyMessageStatusFormatter(MessengerActivity.this))
+                            .setStatusStyle(Message.Companion.getSTATUS_ICON())
+                            .setStatus(MyMessageStatusFormatter.STATUS_DELIVERED)
+                            .build();
+                } else {
+                    message= new Message.Builder()
+                            .setUser(mUsers.get(0))
+                            .setRight(true)
+                            .setText(mChatView.getInputText())
+                            .hideIcon(true)
+                            .setStatusIconFormatter(new MyMessageStatusFormatter(MessengerActivity.this))
+                            .setStatusTextFormatter(new MyMessageStatusFormatter(MessengerActivity.this))
+                            .setStatusStyle(Message.Companion.getSTATUS_ICON())
+                            .setStatus(MyMessageStatusFormatter.STATUS_DELIVERED)
+                            .build();
                 }
                 //Set to chat view
                 mChatView.send(message);

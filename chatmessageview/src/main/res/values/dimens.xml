@@ -29,6 +29,10 @@
     <!-- Radius -->
     <dimen name="view_radius_normal">16dp</dimen>
 
+    <!-- dots -->
+    <dimen name="dots_width">50dp</dimen>
+    <dimen name="dots_height">30dp</dimen>
+
 
 
 </resources>

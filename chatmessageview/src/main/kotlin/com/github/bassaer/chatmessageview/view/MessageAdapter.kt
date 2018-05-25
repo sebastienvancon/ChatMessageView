@@ -189,6 +189,16 @@ class MessageAdapter(context: Context, resource: Int, private val objects: List<
                     }
 
                 }
+                Message.Type.DOTS -> {
+                    //Set picture
+                    layoutInflater.inflate(
+                            if (message.isRight) R.layout.message_dots_right else R.layout.message_dots_left,
+                            messageViewHolder.mainMessageContainer).let {
+                        messageViewHolder.messageDots = it.findViewById(R.id.message_dots)
+                        messageViewHolder.messageDots?.setImageBitmap(message.picture)
+                    }
+
+                }
                 Message.Type.LINK -> {
                     //Set text
                     layoutInflater.inflate(
@@ -364,6 +374,7 @@ class MessageAdapter(context: Context, resource: Int, private val objects: List<
         var icon: CircleImageView? = null
         var iconContainer: FrameLayout? = null
         var messagePicture: RoundImageView? = null
+        var messageDots: DotsImageView? = null
         var messageLink: TextView? = null
         var messageText: TextView? = null
         var timeText: TextView? = null
