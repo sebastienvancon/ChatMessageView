@@ -42,11 +42,11 @@ android {
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-group = 'com.github.bassaer'
+group = 'com.github.sebastienvancon'
 version = libVersion
 
-def siteUrl = 'https://github.com/bassaer/ChatMessageView'
-def gitUrl = 'https://github.com/bassaer/ChatMessageView.git'
+def siteUrl = 'https://github.com/sebastienvancon/ChatMessageView'
+def gitUrl = 'https://github.com/sebastienvancon/ChatMessageView.git'
 
 def localProperties = project.rootProject.file('local.properties')
 
@@ -69,7 +69,7 @@ bintray {
         userOrg = 'tnakayama'
         desc = 'Chat UI Library for Android'
         websiteUrl = siteUrl
-        issueTrackerUrl = 'https://github.com/bassaer/ChatMessageView/issues'
+        issueTrackerUrl = 'https://github.com/sebastienvancon/ChatMessageView/issues'
         vcsUrl = gitUrl
         licenses = ['MIT']
         labels = ['android']
@@ -92,9 +92,9 @@ install {
                 }
                 developers {
                     developer {
-                        id 'bassaer'
-                        name 'Tsubasa Nakayama'
-                        email 'app.nakayama@gmail.com'
+                        id 'sebastienvancon'
+                        name 'Sébastien Vançon'
+                        email 'sebastien.vancon@orange.com'
                     }
                 }
                 scm {
@@ -108,14 +108,14 @@ install {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile "com.android.support:appcompat-v7:26.1.0"
-    compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile "com.android.support:support-v4:26.1.0"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    testImplementation "org.robolectric:robolectric:3.6.1"
-    testCompile "org.mockito:mockito-core:2.13.0"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+    implementation "com.android.support:appcompat-v7:26.1.0"
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation "com.android.support:support-v4:26.1.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    testImplementation "org.robolectric:robolectric:3.8"
+    testImplementation "org.mockito:mockito-core:2.13.0"
 }
 
 
@@ -155,7 +155,7 @@ uploadArchives {
         mavenDeployer {
             repository url: "file://${repo.absolutePath}"
             pom.version = libVersion
-            pom.groupId = 'com.github.bassaer'
+            pom.groupId = 'com.github.sebastienvancon'
             pom.artifactId = 'chatmessageview'
         }
     }

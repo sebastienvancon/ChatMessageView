@@ -213,13 +213,19 @@ class MessageAdapter(context: Context, resource: Int, private val objects: List<
                             messageViewHolder.mainMessageContainer).let {
                         messageViewHolder.messageText = it.findViewById(R.id.message_text)
                         messageViewHolder.messageText?.text = message.text
+                        var colorBubble : Int = if (message.isRight) rightBubbleColor else leftBubbleColor
+                        if (message.getBackgroundColor() != 0){
+                            colorBubble = message.getBackgroundColor()
+                        }
+                        var colorText : Int = if (message.isRight) rightMessageTextColor else leftMessageTextColor
+                        if (message.getTextColor() != 0){
+                            colorText = message.getTextColor()
+                        }
                         setColorDrawable(
-                                if (message.isRight) rightBubbleColor else leftBubbleColor,
+                                colorBubble,
                                 messageViewHolder.messageText?.background
                         )
-                        messageViewHolder.messageText?.setTextColor(
-                                if (message.isRight) rightMessageTextColor else leftMessageTextColor
-                        )
+                        messageViewHolder.messageText?.setTextColor(colorText)
                     }
                 }
             }

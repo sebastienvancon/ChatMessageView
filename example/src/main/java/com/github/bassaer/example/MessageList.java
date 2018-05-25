@@ -64,7 +64,7 @@ public class MessageList {
                 message.getUser().getName(),
                 message.getText(),
                 message.getSendTime(),
-                message.isRight());
+                message.isRight(), message.getBackgroundColor(), message.getTextColor());
 
         saveMessage.setType(message.getType());
 
@@ -86,6 +86,8 @@ public class MessageList {
                 .setText(saveMessage.getContent())
                 .setRight(saveMessage.isRightMessage())
                 .setSendTime(saveMessage.getCreatedAt())
+                .setBackgroundColor(saveMessage.getColorBack())
+                .setTextColor(saveMessage.getTextColor())
                 .setType(saveMessage.getType())
                 .build();
 
@@ -100,17 +102,21 @@ public class MessageList {
         private int mId;
         private String mUsername;
         private String mContent;
+        private int mColorBack;
+        private int mColorText;
         private Calendar mCreatedAt;
         private boolean mRightMessage;
         private String mPictureString;
         private Message.Type mType;
 
-        public SaveMessage(int id, String username, String content, Calendar createdAt, boolean isRightMessage) {
+        public SaveMessage(int id, String username, String content, Calendar createdAt, boolean isRightMessage, int colorBack, int textColor) {
             mId = id;
             mUsername = username;
             mContent = content;
             mCreatedAt = createdAt;
             mRightMessage = isRightMessage;
+            mColorBack = colorBack;
+            mColorText = textColor;
         }
 
         public int getId() {
@@ -119,6 +125,12 @@ public class MessageList {
 
         public String getUsername() {
             return mUsername;
+        }
+        public int getColorBack() {
+            return mColorBack;
+        }
+        public int getTextColor() {
+            return mColorText;
         }
 
         public String getContent() {

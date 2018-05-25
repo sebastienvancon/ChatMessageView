@@ -161,7 +161,7 @@ public class MessengerActivity extends Activity {
             public void onClick(View view) {
                 initUsers();
                 //new message
-                Message message = new Message.Builder()
+                Message message= new Message.Builder()
                         .setUser(mUsers.get(0))
                         .setRight(true)
                         .setText(mChatView.getInputText())
@@ -171,7 +171,10 @@ public class MessengerActivity extends Activity {
                         .setStatusStyle(Message.Companion.getSTATUS_ICON())
                         .setStatus(MyMessageStatusFormatter.STATUS_DELIVERED)
                         .build();
-
+                if (mChatView.getInputText().contains("ok")){
+                    message.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.red500));
+                    message.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.green500));
+                }
                 //Set to chat view
                 mChatView.send(message);
                 //Add message list

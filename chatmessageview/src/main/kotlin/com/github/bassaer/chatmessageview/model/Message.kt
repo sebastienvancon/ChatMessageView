@@ -16,6 +16,10 @@ class Message {
      */
     lateinit var user: IChatUser
 
+
+    var mColorBackground: Int = 0
+    var mColorText: Int = 0
+
     /**
      * Whether sender username is shown or not
      */
@@ -119,7 +123,10 @@ class Message {
         TEXT,
         PICTURE,
         MAP,
-        LINK
+        LINK,
+        CONTACT,
+        POI,
+        TRANSPORT
     }
 
     /**
@@ -219,11 +226,20 @@ class Message {
             message.picture = picture
             return this
         }
+        fun setBackgroundColor(color : Int): Builder{
+            message.mColorBackground = color
+            return this
+        }
+
+        fun setTextColor(color : Int):Builder{
+            message.mColorText = color
+            return this
+        }
+
 
         fun build(): Message {
             return message
         }
-
     }
 
     fun hideIcon(hideIcon: Boolean) {
@@ -244,6 +260,22 @@ class Message {
      */
     fun setDateFormatter(dateFormatter: ITimeFormatter) {
         mDateFormatter = dateFormatter
+    }
+
+    fun setBackgroundColor(color : Int){
+        mColorBackground = color
+    }
+
+    fun setTextColor(color : Int){
+        mColorText = color
+    }
+
+    fun getTextColor() : Int{
+        return mColorText
+    }
+
+    fun getBackgroundColor() : Int{
+        return mColorBackground
     }
 
     interface OnBubbleClickListener {
