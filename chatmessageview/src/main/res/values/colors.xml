@@ -25,4 +25,6 @@
     <!-- Bubble color -->
     <color name="default_left_bubble_color">@color/button_material_light</color>
     <color name="default_right_bubble_color">@color/green500</color>
+    <color name="shadow">#9e4b5071</color>
+    <color name="shadow_2">#004b5071</color>
 </resources>

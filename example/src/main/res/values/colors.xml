@@ -31,4 +31,5 @@
     <color name="blueGray500">#607D8B</color>
     <color name="blueGray700">#455A64</color>
     <color name="transparent">#00000000</color>
+    <color name="POI">#4b5071</color>
 </resources>

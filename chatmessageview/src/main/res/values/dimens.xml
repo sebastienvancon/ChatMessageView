@@ -5,6 +5,9 @@
     <dimen name="font_large">25sp</dimen>
     <dimen name="font_normal">20sp</dimen>
     <dimen name="font_small">15sp</dimen>
+    <dimen name="font_normal_temp">14sp</dimen>
+    <dimen name="font_small_temp">11sp</dimen>
+    <dimen name="font_small_date">9sp</dimen>
 
     <!-- Icon size -->
     <dimen name="icon_small">20dp</dimen>
@@ -22,6 +25,7 @@
     <!-- Layout width -->
     <dimen name="width_normal">200dp</dimen>
     <dimen name="width_small">100dp</dimen>
+    <dimen name="width_small_weather">80dp</dimen>
 
     <!-- Layout height -->
     <dimen name="line_height">1dp</dimen>
@@ -32,6 +36,15 @@
     <!-- dots -->
     <dimen name="dots_width">50dp</dimen>
     <dimen name="dots_height">30dp</dimen>
+
+    <!-- Poi -->
+    <dimen name="poi_width">200dp</dimen>
+    <dimen name="poi_height">70dp</dimen>
+    <dimen name="elevation">8dp</dimen>
+    <dimen name="top_shadow">6dp</dimen>
+    <dimen name="bottom_shadow">15dp</dimen>
+    <dimen name="left_shadow">8dp</dimen>
+    <dimen name="right_shadow">8dp</dimen>
 
 
 
