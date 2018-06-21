@@ -1,10 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.github.bassaer.chatmessageview.view.DotsImageView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/message_dots"
     android:layout_width="@dimen/dots_width"
     android:layout_height="@dimen/dots_height"
-    android:src="@drawable/face_1"
-    android:background="@android:color/transparent"
-    android:scaleType="fitCenter"
-    android:contentDescription="@string/error"/>
+    android:contentDescription="@string/error">
+
+    <LinearLayout
+        android:id="@+id/dot_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <ImageView
+            android:id="@+id/dot1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/error"
+            android:src="@drawable/ic_dot" />
+
+        <ImageView
+            android:id="@+id/dot2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/error"
+            android:src="@drawable/ic_dot" />
+
+        <ImageView
+            android:id="@+id/dot3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/error"
+            android:src="@drawable/ic_dot" />
+
+    </LinearLayout>
+
+</FrameLayout>

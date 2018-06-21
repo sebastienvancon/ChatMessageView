@@ -9,4 +9,4 @@
     android:maxWidth="@dimen/width_normal"
     android:padding="@dimen/spacing_micro"
     android:text="@string/default_text_long"
-    android:textSize="@dimen/font_normal"/>
+    android:textSize="@dimen/font_normal" />

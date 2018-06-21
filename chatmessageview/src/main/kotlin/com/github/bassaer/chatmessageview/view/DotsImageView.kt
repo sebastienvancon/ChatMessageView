@@ -6,7 +6,13 @@ import android.graphics.Path
 import android.graphics.RectF
 import android.os.Build
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.FrameLayout
 import android.widget.ImageView
 
 import com.github.bassaer.chatmessageview.R
@@ -15,37 +21,45 @@ import com.github.bassaer.chatmessageview.R
  * Round Image view for picture on message
  * Created by nakayama on 2017/03/08.
  */
-class DotsImageView : ImageView {
-    private var mClipPath: Path? = null
+class DotsImageView{
 
-    constructor(context: Context) : super(context) {
-        initClipPath()
+    private var layout :FrameLayout?=null
+    private var layoutInflater : LayoutInflater?=null
+
+    constructor(context: Context, viewGroup: ViewGroup){
+//        initClipPath()
+        layoutInflater  = LayoutInflater.from(context)
+        layout = layoutInflater!!.inflate(R.layout.message_dots_left,viewGroup) as FrameLayout
+        init()
     }
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        initClipPath()
+
+    fun init(){
+        var alphaAnimation1 : AlphaAnimation = AlphaAnimation(1f,0.3f)
+        alphaAnimation1.duration = 1000
+        alphaAnimation1.startOffset = 0
+        alphaAnimation1.repeatMode = Animation.REVERSE
+        alphaAnimation1.repeatCount = Animation.INFINITE
+        var alphaAnimation2 : AlphaAnimation = AlphaAnimation(1f,0.3f)
+        alphaAnimation2.duration = 700
+        alphaAnimation2.startOffset = 300
+        alphaAnimation2.repeatMode = Animation.REVERSE
+        alphaAnimation2.repeatCount = Animation.INFINITE
+        var alphaAnimation3 : AlphaAnimation = AlphaAnimation(1f,0.3f)
+        alphaAnimation3.duration = 400
+        alphaAnimation3.startOffset = 600
+        alphaAnimation3.repeatMode = Animation.REVERSE
+        alphaAnimation3.repeatCount = Animation.INFINITE
+        var dot1 : ImageView = layout!!.findViewById(R.id.dot1)
+        var dot2 : ImageView = layout!!.findViewById(R.id.dot2)
+        var dot3 : ImageView = layout!!.findViewById(R.id.dot3)
+        dot1.startAnimation(alphaAnimation1)
+        dot2.startAnimation(alphaAnimation2)
+        dot3.startAnimation(alphaAnimation3)
     }
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        initClipPath()
-    }
 
-    private fun initClipPath() {
-
-        // Below Jelly Bean, clipPath on canvas would not work because lack of hardware acceleration
-        // support. Hence, we should explicitly say to use software acceleration.
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-        }
-        mClipPath = Path()
-        val rect = RectF(0f, 0f, width.toFloat(), height.toFloat())
-        val radius = resources.getDimensionPixelSize(R.dimen.view_radius_normal).toFloat()
-        mClipPath!!.addRoundRect(rect, radius, radius, Path.Direction.CW)
-    }
-
-    override fun onDraw(canvas: Canvas) {
-        initClipPath()
-        canvas.clipPath(mClipPath!!)
-        super.onDraw(canvas)
+    fun getLayout(): FrameLayout{
+        return layout!!
     }
 }
