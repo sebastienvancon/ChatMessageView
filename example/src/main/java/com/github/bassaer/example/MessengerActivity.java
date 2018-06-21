@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -178,12 +180,99 @@ public class MessengerActivity extends Activity {
                             .setStatusStyle(Message.Companion.getSTATUS_ICON())
                             .setStatus(MyMessageStatusFormatter.STATUS_DELIVERED)
                             .build();
+                }else if (mChatView.getInputText().contains("OK")){
+                    ArrayList<Message> messages = mChatView.getMessageView().getMessageList();
+                    Message dots = null;
+                    for (Message msg :  messages) {
+                        if (msg.getType() == Message.Type.DOTS) {
+                            dots = msg;
+                        }
+                    }
+                    mChatView.getMessageView().remove(dots);
+                    message= new Message.Builder()
+                            .setUser(mUsers.get(0))
+                            .setRight(true)
+                            .setText(mChatView.getInputText())
+                            .hideIcon(true)
+                            .setStatusIconFormatter(new MyMessageStatusFormatter(MessengerActivity.this))
+                            .setStatusTextFormatter(new MyMessageStatusFormatter(MessengerActivity.this))
+                            .setStatusStyle(Message.Companion.getSTATUS_ICON())
+                            .setStatus(MyMessageStatusFormatter.STATUS_DELIVERED)
+                            .build();
+                }else if (mChatView.getInputText().contains("POI")){
+                    Bitmap icon = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ic_action_send);
+                    message= new Message.Builder()
+                            .setUser(mUsers.get(0))
+                            .setRight(true)
+                            .setType(Message.Type.POI)
+                            .setText(mChatView.getInputText())
+                            .setPicture(icon)
+                            .hideIcon(true)
+                            .setBackgroundColor(getResources().getColor(R.color.POI))
+                            .setStatusIconFormatter(new MyMessageStatusFormatter(MessengerActivity.this))
+                            .setStatusTextFormatter(new MyMessageStatusFormatter(MessengerActivity.this))
+                            .setStatusStyle(Message.Companion.getSTATUS_ICON())
+                            .setStatus(MyMessageStatusFormatter.STATUS_DELIVERED)
+                            .build();
+                }else if (mChatView.getInputText().contains("contact")){
+                    Bitmap icon = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ic_action_user);
+                    message= new Message.Builder()
+                            .setUser(mUsers.get(0))
+                            .setRight(true)
+                            .setType(Message.Type.CONTACT)
+                            .setText(mChatView.getInputText())
+                            .setPicture(icon)
+                            .hideIcon(true)
+                            .setBackgroundColor(getResources().getColor(R.color.amber500))
+                            .setStatusIconFormatter(new MyMessageStatusFormatter(MessengerActivity.this))
+                            .setStatusTextFormatter(new MyMessageStatusFormatter(MessengerActivity.this))
+                            .setStatusStyle(Message.Companion.getSTATUS_ICON())
+                            .setStatus(MyMessageStatusFormatter.STATUS_DELIVERED)
+                            .build();
+                }else if (mChatView.getInputText().contains("météo")){
+                    Bitmap icon = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ic_action_user);
+                    message= new Message.Builder()
+                            .setUser(mUsers.get(0))
+                            .setRight(true)
+                            .setType(Message.Type.WEATHER)
+                            .setPicture(icon)
+                            .setTempMax(29)
+                            .setTempMin(12)
+                            .setTrend("Ciel dégagé")
+                            .setDay("Aujourd'hui")
+                            .setText(mChatView.getInputText())
+                            .hideIcon(true)
+                            .setBackgroundColor(getResources().getColor(R.color.amber500))
+                            .setStatusIconFormatter(new MyMessageStatusFormatter(MessengerActivity.this))
+                            .setStatusTextFormatter(new MyMessageStatusFormatter(MessengerActivity.this))
+                            .setStatusStyle(Message.Companion.getSTATUS_ICON())
+                            .setStatus(MyMessageStatusFormatter.STATUS_DELIVERED)
+                            .build();
+                    Drawable back = getResources().getDrawable(R.drawable.weather_bg_cloudy,null);
+                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.weather_bg_cloudy);
+                    Bitmap bitmapCrop = Bitmap.createBitmap(bitmap,0,100,200,80);
+                    BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), bitmapCrop);
+                    message.setBackground(bitmapDrawable);
+                }else if (mChatView.getInputText().contains("traffic")){
+                    message= new Message.Builder()
+                            .setUser(mUsers.get(0))
+                            .setRight(true)
+                            .setType(Message.Type.TRAFFIC)
+                            .setText(mChatView.getInputText())
+                            .hideIcon(true)
+                            .setBackgroundColor(getResources().getColor(R.color.deepOrange500))
+                            .setStatusIconFormatter(new MyMessageStatusFormatter(MessengerActivity.this))
+                            .setStatusTextFormatter(new MyMessageStatusFormatter(MessengerActivity.this))
+                            .setStatusStyle(Message.Companion.getSTATUS_ICON())
+                            .setStatus(MyMessageStatusFormatter.STATUS_DELIVERED)
+                            .build();
                 } else {
                     message= new Message.Builder()
                             .setUser(mUsers.get(0))
                             .setRight(true)
                             .setText(mChatView.getInputText())
                             .hideIcon(true)
+//                            .setBackgroundColor(getResources().getColor(R.color.amber500))
                             .setStatusIconFormatter(new MyMessageStatusFormatter(MessengerActivity.this))
                             .setStatusTextFormatter(new MyMessageStatusFormatter(MessengerActivity.this))
                             .setStatusStyle(Message.Companion.getSTATUS_ICON())
