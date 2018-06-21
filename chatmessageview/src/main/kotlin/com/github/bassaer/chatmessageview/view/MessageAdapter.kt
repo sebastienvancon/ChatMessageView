@@ -1,20 +1,22 @@
 package com.github.bassaer.chatmessageview.view
 
 import android.annotation.SuppressLint
+import android.app.ActionBar
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.InsetDrawable
 import android.support.v4.content.ContextCompat
 import android.support.v4.graphics.drawable.DrawableCompat
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import com.github.bassaer.chatmessageview.R
 import com.github.bassaer.chatmessageview.model.Message
 import com.github.bassaer.chatmessageview.models.Attribute
@@ -190,14 +192,33 @@ class MessageAdapter(context: Context, resource: Int, private val objects: List<
 
                 }
                 Message.Type.DOTS -> {
-                    //Set picture
+                    var dotsImageView: DotsImageView = DotsImageView(context,messageViewHolder.mainMessageContainer as ViewGroup)
+                    messageViewHolder.messageDots = dotsImageView.getLayout()
+                }
+                Message.Type.POI ->{
                     layoutInflater.inflate(
-                            if (message.isRight) R.layout.message_dots_right else R.layout.message_dots_left,
-                            messageViewHolder.mainMessageContainer).let {
-                        messageViewHolder.messageDots = it.findViewById(R.id.message_dots)
-                        messageViewHolder.messageDots?.setImageBitmap(message.picture)
+                            if (message.isRight) R.layout.message_poi_right else R.layout.message_poi_left, messageViewHolder.mainMessageContainer).let{
+                        messageViewHolder.messagePoi = it.findViewById(R.id.message_poi)
+                        messageViewHolder.clickableContainer = it.findViewById(R.id.message_poi_clickable)
+                        var colorBubble : Int = if (message.isRight) rightBubbleColor else leftBubbleColor
+                        if (message.getBackgroundColor() != 0){
+                            colorBubble = message.getBackgroundColor()
+                        }
+                        setColorDrawable(
+                                colorBubble,
+                                messageViewHolder.messagePoi?.background
+                        )
                     }
-
+                    var colorText : Int = if (message.isRight) rightMessageTextColor else leftMessageTextColor
+                    if (message.getTextColor() != 0) {
+                        colorText = message.getTextColor()
+                    }
+                    messageViewHolder.messagePoi!!.findViewById<TextView>(R.id.poi_text).text = message.text
+                    messageViewHolder.messagePoi!!.findViewById<TextView>(R.id.poi_text).setTextColor(colorText)
+                    messageViewHolder.messagePoi!!.findViewById<TextView>(R.id.poi_text).setTextSize(TypedValue.COMPLEX_UNIT_PX,attribute.messageFontSize)
+                    if(message.picture != null) {
+                        messageViewHolder.messagePoi!!.findViewById<ImageView>(R.id.poi_icon).setImageBitmap(message.picture!!)
+                    }
                 }
                 Message.Type.LINK -> {
                     //Set text
@@ -206,23 +227,6 @@ class MessageAdapter(context: Context, resource: Int, private val objects: List<
                             messageViewHolder.mainMessageContainer).let {
                         messageViewHolder.messageLink = it.findViewById(R.id.message_link)
                         messageViewHolder.messageLink?.text = message.text
-                        //Set bubble color
-                        setColorDrawable(
-                                if (message.isRight) rightBubbleColor else leftBubbleColor,
-                                messageViewHolder.messageLink?.background
-                        )
-                        //Set message text color
-                        messageViewHolder.messageLink?.setTextColor(
-                                if (message.isRight) rightMessageTextColor else leftMessageTextColor
-                        )
-                    }
-
-                } else -> {
-                    layoutInflater.inflate(
-                            if (message.isRight) R.layout.message_text_right else R.layout.message_text_left,
-                            messageViewHolder.mainMessageContainer).let {
-                        messageViewHolder.messageText = it.findViewById(R.id.message_text)
-                        messageViewHolder.messageText?.text = message.text
                         var colorBubble : Int = if (message.isRight) rightBubbleColor else leftBubbleColor
                         if (message.getBackgroundColor() != 0){
                             colorBubble = message.getBackgroundColor()
@@ -233,21 +237,124 @@ class MessageAdapter(context: Context, resource: Int, private val objects: List<
                         }
                         setColorDrawable(
                                 colorBubble,
-                                messageViewHolder.messageText?.background
+                                messageViewHolder.messageLink?.background
                         )
-                        messageViewHolder.messageText?.setTextColor(colorText)
+                        messageViewHolder.messageLink?.setTextColor(colorText)
                     }
+
                 }
+                Message.Type.CONTACT ->{
+                    layoutInflater.inflate(
+                            if (message.isRight) R.layout.message_contact_right else R.layout.message_contact_left, messageViewHolder.mainMessageContainer).let{
+                        messageViewHolder.messageContact = it.findViewById(R.id.message_contact)
+                        messageViewHolder.clickableContainer = it.findViewById(R.id.message_contact_clickable)
+                        var colorBubble : Int = if (message.isRight) rightBubbleColor else leftBubbleColor
+                        if (message.getBackgroundColor() != 0){
+                            colorBubble = message.getBackgroundColor()
+                        }
+                        setColorDrawable(
+                                colorBubble,
+                                messageViewHolder.messageContact?.background
+                        )
+                    }
+                    var colorText : Int = if (message.isRight) rightMessageTextColor else leftMessageTextColor
+                    if (message.getTextColor() != 0) {
+                        colorText = message.getTextColor()
+                    }
+                    messageViewHolder.messageContact!!.findViewById<TextView>(R.id.contact_text).text = message.text
+//                    var params : FrameLayout.LayoutParams = FrameLayout.LayoutParams(attribute.messageMaxWidth,FrameLayout.LayoutParams.WRAP_CONTENT)
+//                    (messageViewHolder.messageContact!! as FrameLayout).layoutParams = params
+                    messageViewHolder.messageContact!!.findViewById<TextView>(R.id.contact_text).setTextColor(colorText)
+                    messageViewHolder.messageContact!!.findViewById<TextView>(R.id.contact_text).setTextSize(TypedValue.COMPLEX_UNIT_PX,attribute.messageFontSize)
+                    if(message.picture != null) {
+                        messageViewHolder.messageContact!!.findViewById<ImageView>(R.id.contact_icon).setImageBitmap(message.picture!!)
+                    }
+                }Message.Type.WEATHER ->{
+                    layoutInflater.inflate(
+                            if (message.isRight) R.layout.message_weather_right else R.layout.message_weather_left,
+                            messageViewHolder.mainMessageContainer).let {
+                        messageViewHolder.messageWeather = it.findViewById(R.id.message_weather)
+                        var container : LinearLayout? = messageViewHolder.messageWeather?.findViewById(R.id.message_weather_container)
+                        container?.background = message.getBackground()
+                        if(message.picture != null) {
+                            messageViewHolder.messageWeather!!.findViewById<ImageView>(R.id.logo_weather).setImageBitmap(message.picture!!)
+                        }
+                        var tempMax : TextView? = messageViewHolder.messageWeather?.findViewById(R.id.max)
+                        var tempMin : TextView? = messageViewHolder.messageWeather?.findViewById(R.id.min)
+                        var trend : TextView? = messageViewHolder.messageWeather?.findViewById(R.id.info_weather)
+                        var day : TextView? = messageViewHolder.messageWeather?.findViewById(R.id.date_weather)
+                        if(message.mTempMax != null){
+                            val text : String = message.mTempMax.toString()+"°C"
+                            tempMax!!.text = text
+                        }
+                        if(message.mTempMin != null){
+                            val text : String = message.mTempMin.toString()+"°C"
+                            tempMin!!.text = text
+                        }
+                        if(message.mTrend != null){
+                            trend!!.text = message.mTrend
+                        }
+                        if(message.mDay != null){
+                            day!!.text = message.mDay
+                        }
+                    }
+                }Message.Type.TRAFFIC ->{
+                    layoutInflater.inflate(
+                            if (message.isRight) R.layout.message_trafic_right else R.layout.message_trafic_left,
+                            messageViewHolder.mainMessageContainer).let {
+                        messageViewHolder.messageTraffic = it.findViewById(R.id.message_trafic)
+                        messageViewHolder.clickableContainer = it.findViewById(R.id.message_trafic_clickable)
+                        messageViewHolder.messageText = it.findViewById(R.id.message_trafic_text)
+                        messageViewHolder.messageText!!.text = message.text
+                        var colorBubble : Int = if (message.isRight) rightBubbleColor else leftBubbleColor
+                        if (message.getBackgroundColor() != 0){
+                            colorBubble = message.getBackgroundColor()
+                        }
+                        setColorDrawable(
+                                colorBubble,
+                                messageViewHolder.messageTraffic?.background
+                        )
+                    }
+                } else -> {
+                    layoutInflater.inflate(
+                        if (message.isRight) R.layout.message_text_right else R.layout.message_text_left,
+                        messageViewHolder.mainMessageContainer).let {
+                    messageViewHolder.messageText = it.findViewById(R.id.message_text)
+                    messageViewHolder.messageText?.text = message.text
+                    var colorBubble : Int = if (message.isRight) rightBubbleColor else leftBubbleColor
+                    if (message.getBackgroundColor() != 0){
+                        colorBubble = message.getBackgroundColor()
+                    }
+                    var colorText : Int = if (message.isRight) rightMessageTextColor else leftMessageTextColor
+                    if (message.getTextColor() != 0){
+                        colorText = message.getTextColor()
+                    }
+                    setColorDrawable(
+                            colorBubble,
+                            messageViewHolder.messageText?.background
+                    )
+                    messageViewHolder.messageText?.setTextColor(colorText)
+                }
+            }
             }
 
             messageViewHolder.timeText?.text = message.timeText
 
             messageViewHolder.timeText?.setTextColor(sendTimeTextColor)
-
             //Set Padding
             view?.setPadding(0, messageTopMargin, 0, messageBottomMargin)
 
-            if (messageViewHolder.mainMessageContainer != null) {
+            if (messageViewHolder.clickableContainer != null) {
+                //Set bubble click listener
+                messageViewHolder.clickableContainer?.setOnClickListener { bubbleClickListener?.onClick(message) }
+
+
+                //Set bubble long click listener
+                messageViewHolder.clickableContainer?.setOnLongClickListener {
+                    bubbleLongClickListener?.onLongClick(message)
+                    true//ignore onclick event
+                }
+            }else if (messageViewHolder.mainMessageContainer != null) {
                 //Set bubble click listener
                 messageViewHolder.mainMessageContainer?.setOnClickListener { bubbleClickListener?.onClick(message) }
 
@@ -374,11 +481,16 @@ class MessageAdapter(context: Context, resource: Int, private val objects: List<
         var icon: CircleImageView? = null
         var iconContainer: FrameLayout? = null
         var messagePicture: RoundImageView? = null
-        var messageDots: DotsImageView? = null
+        var messageDots: FrameLayout? = null
+        var messagePoi: PoiImageView? = null
+        var messageContact: ContactImageView? = null
+        var messageWeather: WeatherView? = null
+        var messageTraffic: TrafficView? = null
         var messageLink: TextView? = null
         var messageText: TextView? = null
         var timeText: TextView? = null
         var username: TextView? = null
+        var clickableContainer: LinearLayout? = null
         var mainMessageContainer: FrameLayout? = null
         var usernameContainer: FrameLayout? = null
         var statusContainer: FrameLayout? = null
