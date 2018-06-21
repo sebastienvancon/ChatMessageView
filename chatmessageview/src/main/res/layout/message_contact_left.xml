@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.github.bassaer.chatmessageview.view.ContactImageView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/message_contact"
+    android:layout_width="@dimen/width_normal"
+    android:layout_height="wrap_content"
+    android:background="@drawable/message_text_shape_left"
+    android:contentDescription="@string/error"
+    android:layout_marginBottom="@dimen/bottom_shadow"
+    android:layout_marginEnd="@dimen/right_shadow"
+    android:layout_marginStart="@dimen/left_shadow"
+    android:layout_marginTop="@dimen/top_shadow"
+    android:elevation="@dimen/elevation"
+    android:orientation="horizontal"
+    android:maxWidth="@dimen/width_normal"
+    android:scaleType="fitCenter"
+    android:src="@drawable/face_1">
+
+    <LinearLayout
+        android:id="@+id/message_contact_clickable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
+        android:weightSum="5">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/contact_icon"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:contentDescription="@string/error"
+            android:padding="@dimen/spacing_micro"
+            android:src="@drawable/ic_account_circle" />
+
+        <TextView
+            android:id="@+id/contact_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="end|center_vertical"
+            android:padding="@dimen/spacing_micro"
+            android:text="@string/default_text_short" />
+
+
+    </LinearLayout>
+
+</com.github.bassaer.chatmessageview.view.ContactImageView>

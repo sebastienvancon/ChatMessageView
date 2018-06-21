@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.github.bassaer.chatmessageview.view.WeatherView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/message_weather"
+    android:layout_width="@dimen/width_normal"
+    android:layout_height="@dimen/width_small_weather"
+    android:layout_gravity="right"
+    android:background="@drawable/message_text_shape_left"
+    android:contentDescription="@string/error"
+    android:maxHeight="@dimen/width_normal">
+
+    <LinearLayout
+        android:id="@+id/message_weather_container"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="match_parent"
+        android:weightSum="8">
+
+
+        <LinearLayout
+            android:id="@+id/message_weather_info"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="3">
+
+
+            <TextView
+                android:id="@+id/date_weather"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/spacing_micro"
+                android:layout_weight="1"
+                android:contentDescription="@string/error"
+                android:gravity="top"
+                android:text="@string/default_date"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_small_date" />
+
+            <TextView
+                android:id="@+id/info_weather"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="@dimen/spacing_micro"
+                android:layout_marginLeft="@dimen/spacing_micro"
+                android:layout_weight="2"
+                android:gravity="top"
+                android:text="@string/default_info"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_normal_temp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/message_weather_temperature"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="2">
+
+
+            <TextView
+                android:id="@+id/max"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/spacing_micro"
+                android:layout_weight="1"
+                android:contentDescription="@string/error"
+                android:gravity="bottom|end"
+                android:text="@string/default_max_temp"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_normal_temp" />
+
+            <TextView
+                android:id="@+id/min"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="@dimen/spacing_micro"
+                android:layout_weight="1"
+                android:gravity="top|end"
+                android:text="@string/default_min_temp"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_small_temp" />
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/logo_weather"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/spacing_micro"
+            android:layout_weight="2"
+            android:src="@drawable/ic_account_circle" />
+    </LinearLayout>
+</com.github.bassaer.chatmessageview.view.WeatherView>
