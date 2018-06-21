@@ -16,9 +16,60 @@ class Message {
      */
     lateinit var user: IChatUser
 
+    /**
+     * Drawable for the background of the message
+     */
+    var mBackground : Drawable? = null
 
+    /**
+     * Color of the background of the message
+     */
     var mColorBackground: Int = 0
+
+    /**
+     * TextColor of the background
+     */
     var mColorText: Int = 0
+
+    /**
+     * Url For the Poi Icon
+     */
+    var mUrlIcon : String = ""
+
+    /**
+     * Id of a Contact
+     */
+    var mId : String = ""
+
+    /**
+     * Temperature maximum for the weather message
+     */
+    var mTempMax : Int? = null
+
+    /**
+     * Temperature minimum for the weather message
+     */
+    var mTempMin : Int? = null
+
+    /**
+     * Trending of the weather
+     */
+    var mTrend : String? = null
+
+    /**
+     * Day of the weather
+     */
+    var mDay : String? = null
+
+    /**
+     * Resource for the weather background
+     */
+    var mResourceBack : Int = 0
+
+    /**
+     * Id of an icon for the weather
+     */
+    var mWeatherIcon : Int = 0
 
     /**
      * Whether sender username is shown or not
@@ -97,7 +148,6 @@ class Message {
      * PICTURE message
      */
     var picture: Bitmap? = null
-
     /**
      * Message type
      */
@@ -126,7 +176,8 @@ class Message {
         LINK,
         CONTACT,
         POI,
-        TRANSPORT,
+        TRAFFIC,
+        WEATHER,
         DOTS
     }
 
@@ -237,6 +288,35 @@ class Message {
             return this
         }
 
+        fun setTrend(trend : String):Builder{
+            message.mTrend = trend
+            return this
+        }
+
+        fun setTempMax(temp : Int):Builder{
+            message.mTempMax = temp
+            return this
+        }
+
+        fun setTempMin(temp : Int):Builder{
+            message.mTempMin = temp
+            return this
+        }
+
+        fun setDay(day : String):Builder{
+            message.mDay = day
+            return this
+        }
+
+        fun setUrlIcon(url : String):Builder{
+            message.mUrlIcon = url
+            return this
+        }
+
+        fun setId(id : String): Builder{
+            message.mId = id
+            return this
+        }
 
         fun build(): Message {
             return message
@@ -267,6 +347,18 @@ class Message {
         mColorBackground = color
     }
 
+    fun setBackground(color : Drawable){
+        mBackground = color
+    }
+
+    fun setBackgroundResources(res : Int){
+        mResourceBack = res
+    }
+
+    fun setWeatherIcon(res : Int){
+        mWeatherIcon = res
+    }
+
     fun setTextColor(color : Int){
         mColorText = color
     }
@@ -277,6 +369,42 @@ class Message {
 
     fun getBackgroundColor() : Int{
         return mColorBackground
+    }
+
+    fun getBackground() : Drawable?{
+        return mBackground
+    }
+
+    fun getBackgroundResource() : Int{
+        return mResourceBack
+    }
+
+    fun getWeatherIcon() : Int{
+        return mWeatherIcon
+    }
+
+    fun getUrl(): String{
+        return mUrlIcon
+    }
+
+    fun getId(): String{
+        return mId
+    }
+
+    fun getTrend(): String?{
+        return mTrend
+    }
+
+    fun getTempMax() : Int?{
+        return mTempMax
+    }
+
+    fun getTempMin(): Int?{
+        return mTempMin
+    }
+
+    fun getDay() : String?{
+        return mDay
     }
 
     interface OnBubbleClickListener {
