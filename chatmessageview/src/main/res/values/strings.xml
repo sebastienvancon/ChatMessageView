@@ -12,8 +12,8 @@
 
     <!-- Default setting for demo-->
     <string name="default_text_short">Hello!!</string>
-    <string name="default_date">Aujoyrd\'hui</string>
-    <string name="default_info">Tendance</string>
+    <string name="default_date">Aujourd\'hui</string>
+    <string name="default_info">Partiellement nuageux</string>
     <string name="default_min_temp">MIN°C</string>
     <string name="default_max_temp">MAX°C</string>
     <string name="default_text_long">

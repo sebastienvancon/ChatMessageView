@@ -25,7 +25,7 @@ class MessageView : ListView, View.OnFocusChangeListener {
     /**
      * Only messages
      */
-    val messageList = ArrayList<Message>()
+    var messageList = ArrayList<Message>()
 
     private lateinit var messageAdapter: MessageAdapter
 
@@ -62,6 +62,56 @@ class MessageView : ListView, View.OnFocusChangeListener {
         }
         refresh()
         init()
+    }
+
+    /**
+     * Add a list of message in the beginning of the message view and refresh
+     */
+    fun addMore(listToAdd: List<Message>) {
+        var indexToAdd : Int = 0
+        for (i in listToAdd.indices) {
+            indexToAdd = addMessageMore(listToAdd[i],i,indexToAdd,i == (listToAdd.size-1))
+        }
+        refresh()
+    }
+
+    /**
+     * Add a message in the messageList and chatlist with good separators
+     */
+    private fun addMessageMore(messageToAdd : Message, index : Int, indexToAdd : Int, lastMessage : Boolean) : Int{
+        messageList.add(index, messageToAdd)
+        if (index == 0){
+            chatList.add(index + indexToAdd,messageToAdd.dateSeparateText)
+            if (lastMessage){
+                if (TimeUtils.isSameDay(messageToAdd.sendTime, messageList[index+1].sendTime)) {
+                    chatList[index + indexToAdd+1] = messageToAdd
+                    return indexToAdd+1
+                }
+            }
+            chatList.add(index + indexToAdd + 1, messageToAdd)
+            return indexToAdd + 1
+        }
+        val prevMessage = messageList[index - 1]
+        if (!TimeUtils.isSameDay(prevMessage.sendTime, messageToAdd.sendTime)) {
+            chatList.add(index + indexToAdd ,messageToAdd.dateSeparateText)
+            if (lastMessage){
+                if (TimeUtils.isSameDay(messageToAdd.sendTime, messageList[index+1].sendTime)) {
+                    chatList[index + indexToAdd+1] = messageToAdd
+                    return indexToAdd+1
+                }
+            }
+            chatList.add(index + indexToAdd + 1, messageToAdd)
+            return indexToAdd + 1
+        } else {
+            if (lastMessage){
+                if (TimeUtils.isSameDay(messageToAdd.sendTime, messageList[index+1].sendTime)) {
+                    chatList[index + indexToAdd] = messageToAdd
+                    return indexToAdd
+                }
+            }
+            chatList.add(index + indexToAdd, messageToAdd)
+            return indexToAdd
+        }
     }
 
     fun init(attribute: Attribute) {

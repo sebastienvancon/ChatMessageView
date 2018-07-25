@@ -214,6 +214,8 @@ public class MessengerActivity extends Activity {
                             .setStatusStyle(Message.Companion.getSTATUS_ICON())
                             .setStatus(MyMessageStatusFormatter.STATUS_DELIVERED)
                             .build();
+                    message.setDistance("18 m");
+                    message.setDistanceSize(20f);
                 }else if (mChatView.getInputText().contains("contact")){
                     Bitmap icon = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ic_action_user);
                     message= new Message.Builder()

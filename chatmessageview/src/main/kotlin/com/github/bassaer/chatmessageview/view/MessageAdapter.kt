@@ -216,6 +216,17 @@ class MessageAdapter(context: Context, resource: Int, private val objects: List<
                     messageViewHolder.messagePoi!!.findViewById<TextView>(R.id.poi_text).text = message.text
                     messageViewHolder.messagePoi!!.findViewById<TextView>(R.id.poi_text).setTextColor(colorText)
                     messageViewHolder.messagePoi!!.findViewById<TextView>(R.id.poi_text).setTextSize(TypedValue.COMPLEX_UNIT_PX,attribute.messageFontSize)
+                    if(message.getCapacity() != null) {
+                        messageViewHolder.messagePoi!!.findViewById<TextView>(R.id.poi_capacities).visibility = View.VISIBLE
+                        messageViewHolder.messagePoi!!.findViewById<TextView>(R.id.poi_capacities).text = message.getCapacity()
+                        messageViewHolder.messagePoi!!.findViewById<TextView>(R.id.poi_capacities).setTextColor(colorText)
+                        messageViewHolder.messagePoi!!.findViewById<TextView>(R.id.poi_capacities).setTextSize(TypedValue.COMPLEX_UNIT_PX, attribute.messageFontSize)
+                    }
+                    messageViewHolder.messagePoi!!.findViewById<TextView>(R.id.poi_distance).text = message.getDistance()
+                    messageViewHolder.messagePoi!!.findViewById<TextView>(R.id.poi_distance).setTextColor(colorText)
+                    if (message.getDistanceSize() != null) {
+                        messageViewHolder.messagePoi!!.findViewById<TextView>(R.id.poi_distance).setTextSize(TypedValue.COMPLEX_UNIT_PX, message.getDistanceSize()!!)
+                    }
                     if(message.picture != null) {
                         messageViewHolder.messagePoi!!.findViewById<ImageView>(R.id.poi_icon).setImageBitmap(message.picture!!)
                     }

@@ -23,25 +23,64 @@
         android:clickable="true"
         android:focusable="true"
         android:background="?attr/selectableItemBackground"
-        android:weightSum="5">
+        android:weightSum="7">
 
-        <ImageView
-            android:id="@+id/poi_icon"
+
+        <LinearLayout
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="2"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/error"
+            android:orientation="vertical"
             android:padding="@dimen/spacing_micro"
-            android:src="@drawable/ic_account_circle" />
+            android:weightSum="5">
 
-        <TextView
-            android:id="@+id/poi_text"
+            <ImageView
+                android:id="@+id/poi_icon"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:contentDescription="@string/error"
+                android:src="@drawable/ic_account_circle" />
+
+            <TextView
+                android:id="@+id/poi_distance"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="@string/default_text_short"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="3"
-            android:layout_height="match_parent"
-            android:gravity="end|center_vertical"
-            android:padding="@dimen/spacing_micro"
-            android:text="@string/default_text_short" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="5"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/dots_width"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_micro">
+
+            <TextView
+                android:id="@+id/poi_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="right|center_vertical"
+                android:text="@string/default_text_short"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/poi_capacities"
+                android:layout_width="match_parent"
+                android:paddingTop="@dimen/spacing_micro"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="right|center_vertical"
+                android:text="@string/default_text_short" />
+        </LinearLayout>
 
     </LinearLayout>
 

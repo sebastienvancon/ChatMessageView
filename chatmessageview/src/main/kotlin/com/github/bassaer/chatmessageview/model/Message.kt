@@ -96,6 +96,20 @@ class Message {
     var text: String? = null
 
     /**
+     * Message content text
+     */
+    var mDistance: String? = null
+
+    /**
+     * Message content text
+     */
+    var mDistanceSize: Float? = null
+
+    /**
+     * Capacity of the meetingRoom
+     */
+    var mCapacity : String? = null
+    /**
      * The time message that was created
      */
     var sendTime = Calendar.getInstance()
@@ -405,6 +419,30 @@ class Message {
 
     fun getDay() : String?{
         return mDay
+    }
+
+    fun getCapacity() : String?{
+        return mCapacity
+    }
+
+    fun setCapacity(capacity : String?) {
+        mCapacity = capacity
+    }
+
+    fun getDistance() : String?{
+        return mDistance
+    }
+
+    fun setDistance(distance : String) {
+        mDistance = distance
+    }
+
+    fun getDistanceSize() : Float?{
+        return mDistanceSize
+    }
+
+    fun setDistanceSize(distanceSize : Float) {
+        mDistanceSize = distanceSize
     }
 
     interface OnBubbleClickListener {
